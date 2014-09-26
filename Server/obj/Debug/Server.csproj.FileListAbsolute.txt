@@ -1,0 +1,6 @@
+D:\src\ServTK\Debug\Server.exe.config
+D:\src\ServTK\Debug\Server.exe
+D:\src\ServTK\Debug\Server.pdb
+D:\src\ServTK\Server\obj\Debug\Server.exe
+D:\src\ServTK\Server\obj\Debug\Server.pdb
+D:\src\ServTK\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
