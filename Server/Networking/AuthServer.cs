@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using ServTK.Diagnostics;
 
 namespace ServTK.Networking
@@ -40,11 +41,7 @@ namespace ServTK.Networking
                 _clients.Add(state);
             }
 
-            state.Connection.Send(new byte[]
-            {
-                0xAA, 0x00, 0x13, 0x7E, 0x1B, 0x43, 0x4F, 0x4E, 0x4E, 0x45, 0x43, 0x54, 0x45, 0x44, 0x20, 0x53, 0x45,
-                0x52, 0x56, 0x45, 0x52, 0x00
-            });
+            state.Send(new AcceptClient());
         }
         
         public override void Start()
@@ -59,7 +56,14 @@ namespace ServTK.Networking
 
         public override void RegisterHandlers()
         {
-            
+            RegisterHandler(0x00, EncryptionMode.Unencrypted, OnVersionRequest);
+        }
+
+        public void OnVersionRequest(NetState state, PacketReader reader)
+        {
+            ushort version = reader.ReadUInt16();
+            byte unk1 = reader.ReadByte();
+            ushort deep = reader.ReadUInt16();
         }
     }
 }

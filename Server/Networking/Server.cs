@@ -93,7 +93,17 @@ namespace ServTK.Networking
 
         public void PacketRouter(NetState state, byte[] buffer)
         {
-            Handlers[buffer[0]].Callback(state, buffer);
+            if (Handlers[buffer[3]] == null)
+            {
+                Logger.Warning("Unhandled PacketID: {0}", String.Format("0x{0:x2}", buffer[3]));
+                return;
+            }
+
+            PacketReader reader = new PacketReader(buffer);
+
+            ushort packetLength = (ushort)((BitConverter.ToUInt16(netState.Buffer, 1)) + 3);
+
+            Handlers[buffer[3]].Callback(state, reader);
         }
 
         public abstract void RegisterHandlers();

@@ -32,6 +32,11 @@ namespace ServTK.Networking
             _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, RecieveHandler, this);
         }
 
+        public void Send(Packet packet)
+        {
+            Connection.Send(packet);
+        }
+
         public void RegisterRouter(Router router)
         {
             _router = router;
